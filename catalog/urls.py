@@ -4,6 +4,6 @@ from . import views
 app_name = 'catalog'  # Устанавливаем пространство имён
 
 urlpatterns = [
-    path('home/', views.home),
+    path('', views.home),
     path('contacts/', views.contacts)
 ]
