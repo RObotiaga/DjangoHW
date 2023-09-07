@@ -5,5 +5,6 @@ app_name = 'catalog'  # Устанавливаем пространство им
 
 urlpatterns = [
     path('', views.home),
-    path('contacts/', views.contacts)
+    path('contacts/', views.contacts),
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
 ]
