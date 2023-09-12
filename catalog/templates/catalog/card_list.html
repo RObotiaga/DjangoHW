@@ -13,7 +13,7 @@
                 <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
             </div>
             <div class="card-body">
-                <img src="{{ product.img|mediapath }}" alt="{{ product.image }}" class="card-img-top">
+                <img src="{{ product.img|mediapath }}" alt="{{ product.image }}" class="card-img-top" style="height: 200px">
                 <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
                 <p class="text-start m-3">{{ product.description|truncatechars:100 }}</p>
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="/product/{{ product.id }}/">Купить</a>
