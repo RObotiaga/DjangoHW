@@ -8,6 +8,10 @@ class Category(models.Model):
     def __str__(self):
         return f'{self.name} \n{self.description}'
 
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
 
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование')
@@ -24,3 +28,14 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
+    number = models.CharField(max_length=150, verbose_name='номер версии')
+    name = models.CharField(max_length=150, verbose_name='наименование')
+    active = models.BooleanField(default=True, verbose_name='статус версии')
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'

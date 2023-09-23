@@ -6,6 +6,9 @@
 
 {% block content %}
 <div class="row text-center">
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить товар</a>
+    </div>
     {% for product in products %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
@@ -13,13 +16,22 @@
                 <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
             </div>
             <div class="card-body">
-                <img src="{{ product.img|mediapath }}" alt="{{ product.image }}" class="card-img-top" style="height: 200px">
+                <img src="{{ product.img|mediapath }}" alt="{{ product.image }}" class="card-img-top img-fluid" style="max-height: 200px">
                 <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
                 <p class="text-start m-3">{{ product.description|truncatechars:100 }}</p>
-                <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="/product/{{ product.id }}/">Купить</a>
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Купить</a>
+                <a href="{% url 'catalog:update_product' product.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+
+                {% for version in product.version_set.all %}
+                    {% if version.active %}
+                        <p class="card-text position-absolute center-out " style="left:50%!important; transform: translateX(-50%)!important;" >
+                            <small class="text-muted">{{ version.number }} - {{ version.name }}</small>
+                        </p>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}
