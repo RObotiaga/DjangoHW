@@ -11,14 +11,22 @@
     <div class="col-md-4">
       <img class="img-fluid rounded-start" src="{{ product.img|mediapath }}" alt="{{ product.image }}">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-4">
       <div class="card-body">
         <h1 class="card-title">{{ product.name }}</h1>
         <p class="card-text">{{ product.description }}</p>
         <p class="card-text"><small class="text-muted">Создано: {{ product.creation_date }}</small></p>
         <p class="card-text"><small class="text-muted">Последнее обновление: {{ product.last_edit_date }}</small></p>
         <button type="button" class="btn btn-lg btn-outline-primary">Купить за {{ product.price }}$</button>
+        <a href="{% url 'catalog:update_product' product.pk %}" type="button" class="btn btn-lg btn-outline-primary">Изменить</a>
       </div>
+    </div>
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ version_form.as_p }}
+          <button type="submit" class="btn btn-success">Применить</button>
+        </form>
     </div>
   </div>
 </div>
