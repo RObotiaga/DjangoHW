@@ -21,7 +21,7 @@
         <a href="{% url 'catalog:update_product' product.pk %}" type="button" class="btn btn-lg btn-outline-primary">Изменить</a>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="p-md-4">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{ version_form.as_p }}
