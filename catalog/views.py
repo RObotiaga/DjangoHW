@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Product
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView
 from catalog.forms import CreateProductForm, VersionForm
@@ -27,17 +27,22 @@ class ContactsView(View):
         return render(request, 'catalog/contacts.html')
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = CreateProductForm
     success_url = reverse_lazy('catalog:home')
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.creator = self.request.user
+        self.object.save()
 
-class ProductUpdateView(UpdateView):
+        return super().form_valid(form)
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = CreateProductForm
     success_url = reverse_lazy('catalog:home')
-
 
 def add_version(request, pk):
     product = get_object_or_404(Product, pk=pk)

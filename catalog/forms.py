@@ -9,6 +9,18 @@ class CreateProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'description', 'img', 'category', 'price']
 
+    def __init__(self, *args, **kwargs):
+        super(CreateProductForm, self).__init__(*args, **kwargs)
+
+        # Добавляем классы Bootstrap к полям формы
+        self.fields['name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['description'].widget.attrs.update({'class': 'form-control'})
+        self.fields['img'].widget.attrs.update({'class': 'form-control'})
+        self.fields['category'].widget.attrs.update({
+            'class': 'form-select custom-select',  # Добавляем класс Bootstrap для кастомного стиля
+            'style': 'background-color: #f5f5f5; width: 100%;',  # Настройка стиля
+        })
+        self.fields['price'].widget.attrs.update({'class': 'form-control'})
     def clean_name(self):
         cleaned_name = self.cleaned_data.get('name')
         for limitation in LIMITATIONS:
@@ -30,3 +42,10 @@ class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
         fields = ['number', 'name', 'active']
+
+    def __init__(self, *args, **kwargs):
+        super(VersionForm, self).__init__(*args, **kwargs)
+
+        # Добавляем классы Bootstrap к полям формы
+        self.fields['number'].widget.attrs.update({'class': 'form-control'})
+        self.fields['name'].widget.attrs.update({'class': 'form-control'})
