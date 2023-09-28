@@ -94,7 +94,7 @@ STATIC_URL = '/static/'
 # Отвечает за место на диске, откуда необходимо подгружать статику
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-LOGIN_REDIRECT_URL =  '/'
+LOGIN_REDIRECT_URL = 'catalog:home'
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -134,8 +134,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'youremail@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpassword'
 EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sofartem5@gmail.com' #os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'Canavakill' #os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+
+# используется для тестирования
+# выводит письма в консоли
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
