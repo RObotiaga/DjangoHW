@@ -21,6 +21,7 @@ class CreateProductForm(forms.ModelForm):
             'style': 'background-color: #f5f5f5; width: 100%;',  # Настройка стиля
         })
         self.fields['price'].widget.attrs.update({'class': 'form-control'})
+
     def clean_name(self):
         cleaned_name = self.cleaned_data.get('name')
         for limitation in LIMITATIONS:

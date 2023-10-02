@@ -1,0 +1,22 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Главная страница - Skystore{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    {% for category in categories %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ category.name }}</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-start m-3">{{ category.description|truncatechars:100 }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

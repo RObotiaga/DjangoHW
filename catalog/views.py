@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from catalog.models import Product
+from catalog.models import Product, Category
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView
 from catalog.forms import CreateProductForm, VersionForm
+from catalog.services import get_category
 
 
 class HomeView(ListView):
@@ -20,6 +21,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['version_form'] = VersionForm()
         return context
+
 
 class ContactsView(View):
     @staticmethod
@@ -39,10 +41,24 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = CreateProductForm
     success_url = reverse_lazy('catalog:home')
+
+
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = 'categories'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        categories = get_category()
+        context_data['category_list'] = categories
+
+        return context_data
+
 
 def add_version(request, pk):
     product = get_object_or_404(Product, pk=pk)
