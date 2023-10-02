@@ -35,10 +35,12 @@ MANIFEST.in
 /tests/fixtures/project_with_extras/setup.py
 .mypy_cache
 
+poetry.lock
 .venv
 /releases/*
 *.egg-info/
 pip-wheel-metadata
 /poetry.toml
-
+.env
 poetry/core/*
+/media/
